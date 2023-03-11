@@ -7,8 +7,14 @@ function imc(){
     const resultado = document.getElementById('resultado');
 
     if (nome !== "" && altura !== "" && peso !== ""){
-
-        const valorIMC = (peso / (altura*altura)).toFixed(2);
+    
+        let varAltura = altura;
+        
+        if(Number.isInteger(Number.parseFloat(altura))){
+            varAltura = altura.toString().replace(/\D/g, "")/100;
+        }
+        
+        const valorIMC = (peso / (varAltura * varAltura)).toFixed(2);
         
     let situacao = "";
 
@@ -30,7 +36,7 @@ resultado.textContent = `${nome} seu IMC é ${valorIMC} e você está ${situacao
 
     }
     else{
-        alert("Preencha todos os campos");
+        resultado.textContent = ("Favor preencher todos os campos!");
     }
 }
 
