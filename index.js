@@ -1,43 +1,26 @@
 const calcular = document.getElementById('calcular');
 
-function imc(){
+function imc() {
+    console.log("Rodando!!!")
+    const xpto = new XMLHttpRequest();
+    xpto.open("POST", "http://localhost:3000/imc")
+    xpto.setRequestHeader("Content-Type", "application/json")
+    const resultado = document.getElementById('resultado');
     const nome = document.getElementById('nome').value;
     const altura = document.getElementById('altura').value;
     const peso = document.getElementById('peso').value;
-    const resultado = document.getElementById('resultado');
-
-    if (nome !== "" && altura !== "" && peso !== ""){
-    
-        let varAltura = altura;
-        
-        if(Number.isInteger(Number.parseFloat(altura))){
-            varAltura = altura.toString().replace(/\D/g, "")/100;
-        }
-        
-        const valorIMC = (peso / (varAltura * varAltura)).toFixed(2);
-        
-    let situacao = "";
-
-if (valorIMC < 18.5){
-    situacao = 'abaixo do peso.';
-}else if (valorIMC < 25){
-    situacao = 'no peso ideal.';
-}else if (valorIMC < 30){
-    situacao = 'levemente acima do peso.';
-}else if (valorIMC < 35){
-    situacao = 'com obesidade grau I. Atenção!';
-}else if (valorIMC < 40){
-    situacao = 'com obesidade grau II. Atenção!';
-}else{
-    situacao = 'com obesidade grau III. Cuidado!!!';
-}
-
-resultado.textContent = `${nome} seu IMC é ${valorIMC} e você está ${situacao}`;
-
+    console.log('XOPXOTA')
+    const body = JSON.stringify({
+        nome: nome,
+        peso: Number(peso),
+        altura: Number(altura)
+    });
+    xpto.onload = () => {
+        console.log(JSON.parse(xpto.responseText).message);
+     resultado.textContent = JSON.parse(xpto.responseText).message   
     }
-    else{
-        resultado.textContent = ("Favor preencher todos os campos!");
-    }
+    xpto.send(body)
+
 }
 
 calcular.addEventListener("click", imc);
