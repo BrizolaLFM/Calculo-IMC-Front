@@ -83,9 +83,10 @@ button {
     user-select: none;
 }
 
-@media screen and (max-width: 768px) {
-    body{
-        width: 100%;
-        flex-direction: column;
+@media (max-width: 768px) {
+    .preenchimento {
+        font-size: 1rem;
+        display: column;
     }
-}
+  }
+  
